@@ -1,0 +1,67 @@
+﻿<Page
+    x:Class="BookLib.borrowed"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookLib"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x1="using:LibraryItems" 
+    xmlns:x11="using:AllPeople"
+    xmlns:x2="using:Datastor"
+    mc:Ignorable="d">
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/shelves.jpg" Opacity="0.5"/>
+    </Page.Background>
+    <Page.Resources>
+        <DataTemplate x:DataType="x1:Items" x:Key="LibraryItemDataTemplate">
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <SymbolIcon Symbol="Page"/>
+                <StackPanel Orientation="Vertical">
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:DataType="x11:People" x:Key="PersonDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Page"/>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="LoanedItemsTemplate">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Page" />
+                <TextBlock Text="{Binding Key}" />
+                <SymbolIcon Symbol="People"/>
+                <TextBlock Text="{Binding Value, Mode=TwoWay}"/>
+            </StackPanel>
+        </DataTemplate>
+        <local:StringFormatter x:Key="StringFormatterValueConverter"/>
+        <local:MyDataTemplateSelector x:Key="MyDataTemplateSelector"
+        LibraryItemTemplate="{StaticResource LibraryItemDataTemplate}"
+        PersonTemplate="{StaticResource PersonDataTemplate}">
+        </local:MyDataTemplateSelector>
+    </Page.Resources>
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Black"  FontSize="40" Text="Borrowed Items" Margin="592,0,0,0"/>
+
+        <StackPanel Name="LoanedItemsLV" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ListView Name="ListViewLoanedItems" IsMultiSelectCheckBoxEnabled="False"
+                      SelectionChanged="ListViewLoanedItems_SelectionChanged"
+                      ItemsSource="{x:Bind _dicLoaned}" IsItemClickEnabled="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Library"/>
+                            <TextBlock Text="{Binding Key, Converter={StaticResource StringFormatterValueConverter}, ConverterParameter=\{0:s\}}" Margin="7,0,0,0"/>
+                            <SymbolIcon Symbol="WebCam"/>
+                            <TextBlock Text="{Binding Value, Converter={StaticResource StringFormatterValueConverter}, ConverterParameter=\{0:n\}}" Margin="7,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        
+        <Button Content="Back"  VerticalAlignment="Top" HorizontalAlignment="Left"  BorderBrush="Black" FontSize="18" Click="btnBack_Click"/>
+    </Grid>
+</Page>

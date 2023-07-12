@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="BookLib.Employee"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Background>
+    <ImageBrush ImageSource="/Assets/shelves.jpg" Opacity="0.5"/>
+    </Page.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Employee" Grid.Column="0" Grid.Row="0" FontSize=" 40" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black"/>
+
+        <Button Name="SearchBtn" Content="Search for an item" Grid.Column="0" Grid.Row="1" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" DoubleTapped="SearchBtn_Tapped"  FontWeight="Bold" />
+
+        <Button Name="AddBtn" Content="Add an item" Grid.Column="1" Grid.Row="1" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" DoubleTapped="AddBtn_Tapped"  FontWeight="Bold" />
+        <Button Content="Back"  VerticalAlignment="Top" HorizontalAlignment="Left"  BorderBrush="Black" FontSize="18" Click="btnBack_Click"/>
+
+    </Grid>
+</Page>

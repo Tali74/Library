@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="BookLib.Guest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BookLib"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x1="using:LibraryItems"
+    mc:Ignorable="d">
+    <Page.Background>
+    <ImageBrush ImageSource="/Assets/shelves.jpg" Opacity="0.5"/>
+    </Page.Background>
+    
+    <Page.Resources>
+        <local:StringFormatter x:Key="StringFormatterValueConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="ResultLV" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" Background="CadetBlue" Visibility="Visible" SelectionChanged="ResultLV_SelectionChanged" Margin="15" ItemsSource="{x:Bind _resultItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="x1:Items">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Page"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{x:Bind Title}" FontWeight="Bold" FontFamily="Ubuntu"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Price, Converter={StaticResource StringFormatterValueConverter}, ConverterParameter=Price \{0:C\}}" />
+                                <TextBlock Text="{Binding Sale, Converter={StaticResource StringFormatterValueConverter}, ConverterParameter= | Sale - \{0:P0\}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <TextBlock Text="Search the book" Grid.Column="0" Grid.Row="0" FontSize=" 40" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black"/>
+        <ComboBox Name="comboType" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Select type" FontSize="20" Height="60" Width="200" FontWeight="Bold" SelectionChanged="TypeG_Changed" />
+        <TextBlock Text="Book type" Grid.Column="0" Grid.Row="0" FontSize=" 20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground = "RoyalBlue" FontWeight="Bold" />
+        <ComboBox Name="comboSort" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Sort by" FontSize="20" Height="60" Width="200" SelectionChanged="SortG_Changed"  FontWeight="Bold" />
+        <TextBlock Text="Sort by:" Grid.Column="1" Grid.Row="0" FontSize=" 20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground = "RoyalBlue" FontWeight="Bold" />
+        <TextBlock Text="Search by name:" Grid.Column="0" Grid.Row="1" FontSize=" 20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground = "RoyalBlue" FontWeight="Bold" />
+        <TextBox Grid.Column="0" Grid.Row="1" FontSize=" 40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="SearchNameG" Height="70" Width="300" TextChanged="SearchNameG_TextChanged"  /> 
+        <Button Name="SearchBtn" Content="Search" Grid.Column="1" Grid.Row="2" FontSize="40" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Bold" Click="SearchBtn_Click" />
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Name="ErrorMessage" FontSize="20" VerticalAlignment="Center"/>
+        <StackPanel Name="AdminSP" Orientation="Horizontal" Visibility="Collapsed" Grid.Column="1" Grid.Row="2">
+            <Button Name="DeleteItem" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Delete Item" Click="DeleteItem_Click"/>
+            <Button Name="UpdateItem" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Content="Update Item"  Click="UpdateItem_Click"/>
+        </StackPanel>
+        <Button Name="ContinueBtn" Grid.Row="2" Grid.Column="1" Visibility="Collapsed" Content="Continue" FontSize="40"  Click="ContinueBtn_Click"  HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <Button Content="Back"  VerticalAlignment="Top" HorizontalAlignment="Left"  BorderBrush="Black" FontSize="18" Click="btnBack_Click"/>
+        
+        <StackPanel Name="ISBNSP" Grid.Row="1" Grid.Column="1 " HorizontalAlignment="Left" >
+            <TextBlock  Text="Search By ISBN" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground = "RoyalBlue" FontWeight="Bold" />
+            <StackPanel Name="ISBNsmallSP" Orientation="Horizontal" >
+                <TextBox FontSize="30" Name="Prefix" TextChanged="Prefix_TextChanged" />
+                <TextBox FontSize="30" Width="2" Text="-" IsEnabled="False"/>
+                <TextBox FontSize="30" Name="CountryNum"/>
+                <TextBox FontSize="30" Width="2" Text="-" IsEnabled="False"/>
+                <TextBox FontSize="30" Name="PublisherTB"/>
+                <TextBox FontSize="30" Width="2" Text="-" IsEnabled="False"/>
+                <TextBox FontSize="30" Name="SerialNumberTB"/>
+                <TextBox FontSize="30" Width="2" Text="-" IsEnabled="False"/>
+                <TextBox FontSize="30" Name="ControlTB" />
+            </StackPanel>
+        </StackPanel>
+        
+    </Grid>
+</Page>
